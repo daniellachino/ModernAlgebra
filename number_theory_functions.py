@@ -2,16 +2,56 @@ from random import randrange
 
 def extended_gcd(a,b):
     """
-    Returns the extended gcd of a and b
+        Returns the extended gcd of a and b
 
-    Parameters
-    ----------
-    a : Input data.
-    b : Input data.
-    Returns
-    -------
-    (d, x, y): d = gcd(a,b) = a*x + b*y
-    """
+        Parameters
+        ----------
+        a : Input data.
+        b : Input data.
+        Returns
+        -------
+        (d, x, y): d = gcd(a,b) = a*x + b*y
+        """
+    if a == 0 and b == 0:
+        raise Exception
+    # if a == 0 or b == 0:
+        # TODO: support negative numbers
+        # a_abs = abs(a)
+        # b_abs = abs(b)
+        # return (max(a_abs,b_abs), a>b, b>a)
+
+    if a>b:
+        bigger = a
+        smaller = b
+    else:
+        bigger = b
+        smaller = a
+
+    quotient, remainder, x, y, iteration = -1, -1, 1, 1, 1
+
+    while remainder != 0:
+        quotient, remainder = divmod(bigger, smaller)
+        if (remainder != 0):
+            if (iteration == 1):
+                x = veryOldX = 1
+                y = veryOldY = -1*quotient
+
+            elif (iteration == 2):
+                oldX = x = -1*quotient
+                oldY = y = 1 - quotient
+
+            else:
+                    x = veryOldX - quotient*oldX
+                    y = veryOldY - quotient*oldY
+                    veryOldX, veryOldY = oldX, oldY
+                    oldX, oldY = x, y
+
+        bigger = smaller
+        smaller = remainder
+        iteration += 1
+    gcd = smaller
+    print(f'{gcd}, {x}, {y}')
+
 
 
 

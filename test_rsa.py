@@ -33,4 +33,5 @@ class TestRSA(unittest.TestCase):
             self.assertEqual(M,MM)
 
 if __name__ == '__main__':
-    unittest.main()
+    #unittest.main()
+    number_theory_functions.extended_gcd(15,5)
