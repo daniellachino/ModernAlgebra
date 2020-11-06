@@ -12,6 +12,19 @@ def extended_gcd(a,b):
     -------
     (d, x, y): d = gcd(a,b) = a*x + b*y
     """
+    # Base Case
+    if a == 0:
+        return b, 0, 1
+
+    d, x1, y1 = extended_gcd(b % a, a)
+
+    # Update x and y using results of recursive
+    # call
+    x = y1 - (b // a) * x1
+    y = x1
+
+    return d, x, y
+
 
 
 
