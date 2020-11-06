@@ -1,5 +1,6 @@
 from random import randrange
 import time
+from math import sqrt,floor
 def __extended_gcd(a,b):
     """
     Returns the extended gcd of a and b
@@ -56,7 +57,7 @@ def modular_inverse(a,n):
 
 
 
-def modular_exponent(a, d, n):
+def __modular_exponent(a, d, n):
     """
        Returns a to the power of d modulo n
 
@@ -70,6 +71,7 @@ def modular_exponent(a, d, n):
        -------
        b: such that b == (a**d) % n
        """
+
     d_bin = bin(d)[2:]
     d_bin = d_bin[::-1]
     res=1
@@ -84,7 +86,14 @@ def modular_exponent(a, d, n):
         res *= tmp
     res = res%n
     return res
-
+def modular_exponent(a,d,n):
+    divnum = floor(sqrt(d))
+    res =1
+    for i in range(divnum):
+        res *= __modular_exponent(a,d//divnum,n)
+        res = res % n
+    res *= __modular_exponent(a,d%divnum,n)
+    return res %n
 
 def miller_rabin(n):
     """
