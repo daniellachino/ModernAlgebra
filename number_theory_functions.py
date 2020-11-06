@@ -16,27 +16,41 @@ def extended_gcd(a,b):
 
 
 def modular_inverse(a,n):
+    """
+       Returns the inverse of a modulo n if one exists
+
+       Parameters
+       ----------
+       a : Input data.
+       n : Input data.
+
+       Returns
+       -------
+       x: such that (a*x % n) == 1 and 0 <= x < n if one exists, else None
+       """
     gcd_res = extended_gcd(a,n)
     if  gcd_res[0] != 1:
         return -1
     if gcd_res[1]>0:
         return gcd_res[1]%n
     return (n+gcd_res[1])%n
-    """
-    Returns the inverse of a modulo n if one exists
 
-    Parameters
-    ----------
-    a : Input data.
-    n : Input data.
-
-    Returns
-    -------
-    x: such that (a*x % n) == 1 and 0 <= x < n if one exists, else None
-    """
 
 
 def modular_exponent(a, d, n):
+    """
+       Returns a to the power of d modulo n
+
+       Parameters
+       ----------
+       a : The exponential's base.
+       d : The exponential's exponent.
+       n : The exponential's modulus.
+
+       Returns
+       -------
+       b: such that b == (a**d) % n
+       """
     d_bin = bin(d)
     res=1
     a = a%n
@@ -48,19 +62,7 @@ def modular_exponent(a, d, n):
         res *= tmp
     res = res%n
     return res
-    """
-    Returns a to the power of d modulo n
 
-    Parameters
-    ----------
-    a : The exponential's base.
-    d : The exponential's exponent.
-    n : The exponential's modulus.
-
-    Returns
-    -------
-    b: such that b == (a**d) % n
-    """
 
 def miller_rabin(n):
     """
