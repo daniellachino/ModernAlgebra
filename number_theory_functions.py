@@ -31,6 +31,17 @@ def modular_inverse(a,n):
 
 
 def modular_exponent(a, d, n):
+    d_bin = bin(d)
+    res=1
+    a = a%n
+    for e,x in enumerate(d_bin):
+        if e<2:
+            continue
+        tmp = a**(int(x,2)*(2**(e-2)))
+        tmp = tmp%n
+        res *= tmp
+    res = res%n
+    return res
     """
     Returns a to the power of d modulo n
 
