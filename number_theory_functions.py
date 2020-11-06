@@ -1,6 +1,6 @@
 from random import randrange
-
-def extended_gcd(a,b):
+import time
+def __extended_gcd(a,b):
     """
     Returns the extended gcd of a and b
 
@@ -16,7 +16,7 @@ def extended_gcd(a,b):
     if a == 0:
         return b, 0, 1
 
-    d, x1, y1 = extended_gcd(b % a, a)
+    d, x1, y1 = __extended_gcd(b % a, a)
 
     # Update x and y using results of recursive
     # call
@@ -24,7 +24,13 @@ def extended_gcd(a,b):
     y = x1
 
     return d, x, y
+def extended_gcd(a,b):
+    if (a==0 and b==0):
+        raise Exception("gcd(0,0) is undefined")
+    (d,x,y) = __extended_gcd(a,b)
+    sign_d = abs(d)/d
 
+    return sign_d*d,sign_d*x, sign_d*y
 
 
 
@@ -64,13 +70,16 @@ def modular_exponent(a, d, n):
        -------
        b: such that b == (a**d) % n
        """
-    d_bin = bin(d)
+    d_bin = bin(d)[2:]
+    d_bin = d_bin[::-1]
     res=1
     a = a%n
-    for e,x in enumerate(d_bin):
-        if e<2:
+    for i,x in enumerate(d_bin):
+        if x == "0":
             continue
-        tmp = a**(int(x,2)*(2**(e-2)))
+        b = int(x,2)
+        modi = 2**(i)
+        tmp = a**(b*modi)
         tmp = tmp%n
         res *= tmp
     res = res%n
@@ -131,3 +140,19 @@ def generate_prime(digits):
         if is_prime(n):
             return n
     return None
+
+if __name__ == '__main__':
+    # unittest.main()
+    a = 5279
+    b = -797
+    r = lambda x: 1e6 * x
+    d, x, y = list(map(r,extended_gcd(a, b)))
+    print(d == 1e6)
+    print(d == a*x+b*y)
+    m = 23539673
+    n = 3434462
+    base = 1000
+    st = time.time()
+    print(modular_exponent(m,n,base))
+    print(time.time()-st)
+

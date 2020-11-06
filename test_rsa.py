@@ -5,7 +5,8 @@ from rsa_functions import RSA
 class TestNumberTheory(unittest.TestCase):
     def test_extended_gcd(self):
         values = [(119952, 34425, 153),
-                 (428848, 123075, 547)
+                 (428848, 123075, 547),
+                  (-39,3, 3)
                  ]
         for (a,b,d) in values:
             (gcd,x,y) = number_theory_functions.extended_gcd(a,b)
@@ -33,4 +34,7 @@ class TestRSA(unittest.TestCase):
             self.assertEqual(M,MM)
 
 if __name__ == '__main__':
-    unittest.main()
+    # unittest.main()
+    a = 5279
+    b = -797
+    print(number_theory_functions.extended_gcd(a, b))
