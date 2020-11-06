@@ -30,7 +30,7 @@ def modular_inverse(a,n):
        """
     gcd_res = extended_gcd(a,n)
     if  gcd_res[0] != 1:
-        return -1
+        return None
     if gcd_res[1]>0:
         return gcd_res[1]%n
     return (n+gcd_res[1])%n
