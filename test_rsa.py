@@ -27,14 +27,25 @@ class TestNumberTheory(unittest.TestCase):
 class TestRSA(unittest.TestCase):
     def test_encrypt_decrypt(self):
         rsa = RSA.generate(10)
-        plaintexts = [123456789, 17, 9999, 102930]
+        plaintexts = [123456789,17,9999, 102930]
         for M in plaintexts:
             C = rsa.encrypt(M)
             MM = rsa.decrypt(C)
             self.assertEqual(M,MM)
 
 if __name__ == '__main__':
-    # unittest.main()
     a = 5279
     b = -797
-    print(number_theory_functions.extended_gcd(a, b))
+    r = lambda x: 1*x
+    d,x,y = map(r,number_theory_functions.extended_gcd(a, b))
+    print(f"{d} = {x}a + {y}b ")
+    print(f"Iron man will give  {x} million bills and loki will give back {y} coins")
+    N = 12215009
+    e = 3499
+    d = 5425399
+    rsa = RSA((N,e),(N,d))
+    m = 42
+    print(rsa.decrypt(rsa.encrypt(m)))
+    unittest.main()
+
+

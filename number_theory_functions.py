@@ -25,12 +25,14 @@ def __extended_gcd(a,b):
     y = x1
 
     return d, x, y
+
 def extended_gcd(a,b):
     if (a==0 and b==0):
         raise Exception("gcd(0,0) is undefined")
     (d,x,y) = __extended_gcd(a,b)
-    sign_d = abs(d)/d
 
+    sign_d = int(abs(d)/d)
+    d,x,y = int(d),int(x),int(y)
     return sign_d*d,sign_d*x, sign_d*y
 
 
@@ -54,38 +56,30 @@ def modular_inverse(a,n):
     if gcd_res[1]>0:
         return gcd_res[1]%n
     return (n+gcd_res[1])%n
-
-
-
 def __modular_exponent(a, d, n):
     """
-       Returns a to the power of d modulo n
+    Returns a to the power of d modulo n
 
-       Parameters
-       ----------
-       a : The exponential's base.
-       d : The exponential's exponent.
-       n : The exponential's modulus.
+    Parameters
+    ----------
+    a : The exponential's base.
+    d : The exponential's exponent.
+    n : The exponential's modulus.
 
-       Returns
-       -------
-       b: such that b == (a**d) % n
-       """
+    Returns
+    -------
+    b: such that b == (a**d) % n
+    """
+    result = 1
+    x = a
+    while d > 0:
+        if d % 2 == 1:
+            result = (result * x) % n
+        x = (x*x) % n
+        d = d // 2
+    return result
 
-    d_bin = bin(d)[2:]
-    d_bin = d_bin[::-1]
-    res=1
-    a = a%n
-    for i,x in enumerate(d_bin):
-        if x == "0":
-            continue
-        b = int(x,2)
-        modi = 2**(i)
-        tmp = a**(b*modi)
-        tmp = tmp%n
-        res *= tmp
-    res = res%n
-    return res
+
 def modular_exponent(a,d,n):
     divnum = floor(sqrt(d))
     res =1
@@ -150,18 +144,6 @@ def generate_prime(digits):
             return n
     return None
 
-if __name__ == '__main__':
-    # unittest.main()
-    a = 5279
-    b = -797
-    r = lambda x: 1e6 * x
-    d, x, y = list(map(r,extended_gcd(a, b)))
-    print(d == 1e6)
-    print(d == a*x+b*y)
-    m = 23539673
-    n = 3434462
-    base = 1000
-    st = time.time()
-    print(modular_exponent(m,n,base))
-    print(time.time()-st)
+if __name__ == "__main__":
+    print(generate_prime(5))
 
